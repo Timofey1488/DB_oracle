@@ -63,22 +63,26 @@ BEGIN
 END;
 
 --Step 5--
-CREATE OR REPLACE FUNCTION crud RETURN NUMBER
-IS
-  success NUMBER;
-BEGIN
-    INSERT INTO MyTable (val) VALUES (228);
-    UPDATE MyTable set val = 229 WHERE id = 1;
-    DELETE FROM MyTable WHERE id = 1;
-  success := 1;
-  RETURN success;
-END;
+CREATE OR REPLACE PROCEDURE ins(in_val IN NUMBER) AS
+    BEGIN
+        INSERT INTO MyTable
+            (VAL)
+        VALUES
+            (in_val);
+    end;
 
-DECLARE
-    success NUMBER;
+ CREATE OR REPLACE PROCEDURE del(ID_in IN NUMBER) AS
+    BEGIN
+        DELETE FROM MyTable
+            WHERE ID = ID_in;
+    end;
+
+ CREATE OR REPLACE PROCEDURE upd(ID_in IN NUMBER, val_in IN NUMBER) AS
 BEGIN
-    success := crud();
-END;
+    UPDATE MyTable
+    SET VAL = val_in
+    WHERE ID = ID_in;
+end;
 
 --Step 6
 CREATE OR REPLACE FUNCTION calc(
